@@ -1,0 +1,25 @@
+{
+    "name": "rayamedia/yima-plugin-installer",
+    "type": "composer-installer",
+    "extra": {
+        "class": "YimaInstaller\\Composer\\ComposerInstaller"
+    },
+    "description": "Composer installer for Yima plugins",
+    "authors": [
+        {
+            "name": "Payam Naderi",
+            "email": "naderi.payam@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-0": {
+            "YimaInstaller": "src/"
+        }
+    },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "http://packages.raya-media.com/"
+        }
+    ]
+}
