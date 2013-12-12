@@ -17,20 +17,24 @@ class ComposerInstaller extends LibraryInstaller
      */
     public function getPackageBasePath(PackageInterface $package)
     {
+        list($namespace ,$packageName) = explode('/', $package->getPrettyName());
+
+        // leave namespace free
+
         $strlen = strlen('yima-');
-        $prefix = substr($package->getPrettyName(), 0, $strlen);
-        if ('yima-' !== $prefix) {
+        $prefix = substr($packageName, 0, $strlen);
+        if ($prefix !== 'yima-') {
             throw new \InvalidArgumentException(sprintf(
                 'Unable to install package "%s"'
                 .'should always start their package name with '
                 .'"yima-", package start with "%s"',
-                $package->getPrettyName(),
+                $packageName,
                 $prefix
                 )
             );
         }
 
-        $packageName = str_replace(' ', '', ucwords(str_replace('-', ' ', substr($package->getPrettyName(), $strlen))));
+        $packageName = str_replace(' ', '', ucwords(str_replace('-', ' ', substr($packageName, $strlen))));
 
         return '_app/core/'.$packageName;
     }
