@@ -36,7 +36,9 @@ class ComposerInstaller extends LibraryInstaller
 
         $packageName = str_replace(' ', '', ucwords(str_replace('-', ' ', substr($packageName, $strlen))));
 
-        return '_app/core/'.$packageName;
+        require_once getcwd().DIRECTORY_SEPARATOR.'indefine.php';
+
+        return APP_DIR_CORE.DS.$packageName;
     }
 
     /**
