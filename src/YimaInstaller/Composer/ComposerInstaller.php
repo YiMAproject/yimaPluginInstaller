@@ -17,26 +17,24 @@ class ComposerInstaller extends LibraryInstaller
      */
     public function getPackageBasePath(PackageInterface $package)
     {
-        list($namespace ,$packageName) = explode('/', $package->getPrettyName());
-
-        // leave namespace free
-
-        $strlen = strlen('yima-');
-        $prefix = substr($packageName, 0, $strlen);
-        if ($prefix !== 'yima-') {
-            throw new \InvalidArgumentException(sprintf(
-                'Unable to install package "%s"'
-                .'should always start their package name with '
-                .'"yima-", package start with "%s"',
-                $packageName,
-                $prefix
-                )
-            );
+        $yimaConstsFile = getcwd().DIRECTORY_SEPARATOR.'indefine.php';
+        if (!file_exists($yimaConstsFile)) {
+            // we are not on YiMa
+            return parent::getPackageBasePath($package);
         }
 
-        $packageName = str_replace(' ', '', ucwords(str_replace('-', ' ', substr($packageName, $strlen))));
+        include_once $yimaConstsFile;
 
-        require_once getcwd().DIRECTORY_SEPARATOR.'indefine.php';
+        list($namespace ,$packageName) = explode('/', $package->getPrettyName());
+
+        // leave namespaces be
+        $packageExtra = $package->getExtra();
+        if (isset($packageExtra['yima-plugin-name'])) {
+            $packageName = $packageExtra['yima-plugin-name'];
+        }
+
+        // determine directory by type
+        // $package->getType()
 
         return APP_DIR_CORE.DS.$packageName;
     }
