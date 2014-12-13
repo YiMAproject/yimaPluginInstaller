@@ -17,11 +17,10 @@ class ComposerInstaller extends LibraryInstaller
      */
     public function getPackageBasePath(PackageInterface $package)
     {
-        $yimaConstsFile = getcwd().DIRECTORY_SEPARATOR.'indefine.php';
-        if (!file_exists($yimaConstsFile)) {
+        $yimaConstsFile = getcwd().DIRECTORY_SEPARATOR.'index.consist.php';
+        if (!file_exists($yimaConstsFile))
             // we are not on YiMa
             return parent::getPackageBasePath($package);
-        }
 
         include_once $yimaConstsFile;
 
