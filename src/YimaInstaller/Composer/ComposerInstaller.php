@@ -43,6 +43,6 @@ class ComposerInstaller extends LibraryInstaller
      */
     public function supports($packageType)
     {
-        return "yima-core-module" === $packageType;
+        return "yima-module" === $packageType;
     }
 }
